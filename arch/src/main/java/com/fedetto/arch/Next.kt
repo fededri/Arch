@@ -1,4 +1,4 @@
-package com.example.arch
+package com.fedetto.arch
 
 sealed class Next<out State : Any, out SideEffect : SideEffectInterface, out Event : Any> {
 

@@ -1,9 +1,8 @@
-package com.example.example
+package com.fedetto.example
 
-import com.example.arch.ArchViewModel
-import com.example.arch.Processor
-import com.example.arch.Updater
-import com.example.arch.coroutines.SharedFlowParameters
+import com.fedetto.arch.ArchViewModel
+import com.fedetto.arch.Processor
+import com.fedetto.arch.Updater
 
 class ViewModel(
     updater: Updater<Action, State, SideEffect, Event>,

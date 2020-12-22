@@ -1,4 +1,4 @@
-package com.example.arch
+package com.fedetto.arch
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

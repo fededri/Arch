@@ -1,6 +1,6 @@
-package com.example.example
+package com.fedetto.example
 
-import com.example.arch.Processor
+import com.fedetto.arch.Processor
 import kotlinx.coroutines.delay
 
 class CounterProcessor : Processor<SideEffect, Action> {

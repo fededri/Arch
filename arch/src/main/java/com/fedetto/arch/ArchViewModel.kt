@@ -1,10 +1,10 @@
-package com.example.arch
+package com.fedetto.arch
 
 import android.os.Looper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.arch.coroutines.DispatcherProvider
-import com.example.arch.coroutines.SharedFlowParameters
+import com.fedetto.arch.coroutines.DispatcherProvider
+import com.fedetto.arch.coroutines.SharedFlowParameters
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

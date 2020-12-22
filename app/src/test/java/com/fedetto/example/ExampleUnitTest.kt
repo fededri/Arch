@@ -1,4 +1,4 @@
-package com.example.example
+package com.fedetto.example
 
 import org.junit.Test
 

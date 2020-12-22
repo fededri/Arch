@@ -1,4 +1,4 @@
-package com.example.arch
+package com.fedetto.arch
 
 
 interface Processor<SideEffect : SideEffectInterface, out Action : Any> {

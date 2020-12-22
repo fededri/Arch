@@ -1,4 +1,4 @@
-package com.example.arch.coroutines
+package com.fedetto.arch.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

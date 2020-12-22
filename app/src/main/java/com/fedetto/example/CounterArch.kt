@@ -1,6 +1,6 @@
-package com.example.example
+package com.fedetto.example
 
-import com.example.arch.SideEffectInterface
+import com.fedetto.arch.SideEffectInterface
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
