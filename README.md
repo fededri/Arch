@@ -8,13 +8,13 @@ This library is built upon the Android's ViewModel class and takes full advantag
 It is an abstract class extending from *ViewModel* and contains the main logic of this library,
 
 ## State
-Handling state properly in every application is critical, with **Arch** you must define a custom State data class for each of your ViewModels, this state will be *inmmutable*
+Handling state properly in every application is critical, with **Arch** you must define a custom State data class for each of your ViewModels, this state will be **inmmutable**
 
 ## Actions
 With **Arch** the only way of changing anything in the app is by dispatching an **Action**, usually actions will be dispatched by user interactions, but not always.
 
 ## Updater
-Updater is an interface with just one **pure function**, it receives an action, modify the current state and returns a `Next` object. 
+Updater is an interface with just one **pure function**, it receives an action, creates a new state from the previous one and returns a `Next` object. 
 `Next` is a sealed class with types:
 - `Next.State`
 - `Next.StateWithSideEffects`
