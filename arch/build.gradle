@@ -3,6 +3,32 @@ plugins {
     id 'kotlin-android'
 }
 
+ext {
+    bintrayRepo = 'Arch' // Repo name in bintray dashboard
+    bintrayName = 'com.fedetto.arch' // package name of the bintray repo
+
+    publishedGroupId = 'com.fedetto.arch'   // this is the ID we want to see in implementation line
+    libraryName = 'arch'     // this is the module name of library
+    artifact = 'arch'        // this is the artifact we want to see in implementation line
+
+    libraryDescription = 'Android library to architecture your app following functional concepts, state management, ViewModels and coroutines' // description of library
+
+    siteUrl = 'https://github.com/fededri/Arch'
+    gitUrl = 'https://github.com/fededri/Arch.git'
+
+    libraryVersion = '1.0.1'      // library version
+
+    developerId = 'fedeto'
+    developerName = 'Federico Miguel Angel Torres'
+    developerEmail = 'federico.ma.torres@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'  // for example, The Apache Software License, Version 2.0
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'   // for example, http://www.apache.org/licenses/LICENSE-2.0.txt
+    allLicenses = ["Apache-2.0"]    // array of licenses, for example, ["Apache-2.0"]
+}
+
+
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -47,4 +73,10 @@ dependencies {
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+}
+
+apply from: 'publish.gradle'
+
+tasks.withType(Javadoc).all {
+    enabled = false
 }
