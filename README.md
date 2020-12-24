@@ -1,5 +1,5 @@
 ![Arch](logo.png)
-Arch is a small library that helps to architecture your Android Application, it is based on several concepts of the functional paradigm and Mobius library created by Spotify's team but instead of using RxJava, it uses **Coroutines, SharedFlow and StateFlow**
+Arch is a small library that helps to architecture Android Applications, it is based on several concepts of the functional paradigm and  Spotify's Mobius library but instead of using RxJava, it uses **Coroutines, SharedFlow and StateFlow**
 
 This library is built upon the Android's ViewModel class and takes full advantage of it
 
@@ -24,4 +24,6 @@ Updater is an interface with just one **pure function**, it receives an action, 
 Depending on what type of `Next` object the ***Updater** returns in addition to changing the state, you can dispatch **SideEffects** and **Events** 
 
 ## SideEffects
-They are usually blocking or long running operations like database transactions or network requests.
+They are usually blocking or long running operations like database transactions or network requests. When a SideEffect is dispatched, a new coroutine is created in order to execute it. By default the coroutine will be cancelled if the ViewModel is cleared, but you can pass in a custom `CoroutineScope` if you want to keep alive the coroutine even after the ViewModel is cleared, my recommendation -if that is the case - is create a `CoroutineScope` inside your 'Application' class and pass it to the SideEffect's constructor
+
+ 
