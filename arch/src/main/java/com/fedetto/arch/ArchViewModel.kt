@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fedetto.arch.coroutines.DispatcherProvider
 import com.fedetto.arch.coroutines.SharedFlowParameters
+import com.fedetto.arch.interfaces.ActionsDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ constructor(
     eventsFlowParams: SharedFlowParameters = SharedFlowParameters(),
     private val coroutineExceptionHandler: CoroutineExceptionHandler? = null,
 
-) : ViewModel() {
+) : ViewModel(), ActionsDispatcher<Action> {
 
     private val state = MutableStateFlow(initialState)
     private val events = MutableSharedFlow<Event>(
@@ -37,7 +38,7 @@ constructor(
         return events.asSharedFlow()
     }
 
-    fun action(action: Action) {
+    override fun action(action: Action) {
         check(isOnMainThread(Thread.currentThread())) {
             "Actions must be dispatched from the UI thread"
         }
