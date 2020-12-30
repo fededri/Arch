@@ -6,7 +6,7 @@ This library is built upon the Android's ViewModel class and takes full advantag
 
 ## Download
 ```groovy
-implementation 'com.fededri.arch:arch:1.0.0-alpha01'
+implementation 'com.fededri.arch:arch:1.0.0-alpha02'
 ```
 
 ## ArchViewModel
