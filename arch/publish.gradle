@@ -80,14 +80,8 @@ bintray {
         licenses = allLicenses
         publish = true
         publicDownloadNumbers = true
-        userOrg = 'fedeto'
         version {
             desc = libraryDescription
-            // Uncomment 4 lines below to enable gpg auto signing
-            //gpg {
-            //    sign = true //Determines whether to GPG sign the files. The default is false
-            //    passphrase = properties.getProperty("bintray.gpg.password")
-            //}
         }
     }
 }

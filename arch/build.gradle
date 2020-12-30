@@ -5,9 +5,9 @@ plugins {
 
 ext {
     bintrayRepo = 'Arch' // Repo name in bintray dashboard
-    bintrayName = 'com.fedetto.arch' // package name of the bintray repo
+    bintrayName = 'com.fededri.arch' // package name of the bintray repo
 
-    publishedGroupId = 'com.fedetto.arch'   // this is the ID we want to see in implementation line
+    publishedGroupId = 'com.fededri.arch'   // this is the ID we want to see in implementation line
     libraryName = 'arch'     // this is the module name of library
     artifact = 'arch'        // this is the artifact we want to see in implementation line
 
@@ -16,9 +16,9 @@ ext {
     siteUrl = 'https://github.com/fededri/Arch'
     gitUrl = 'https://github.com/fededri/Arch.git'
 
-    libraryVersion = '1.0.2'      // library version
+    libraryVersion = '1.0.0-alpha01'      // library version
 
-    developerId = 'fedeto'
+    developerId = 'fededri'
     developerName = 'Federico Miguel Angel Torres'
     developerEmail = 'federico.ma.torres@gmail.com'
 

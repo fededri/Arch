@@ -4,7 +4,7 @@ import android.os.Looper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fedetto.arch.coroutines.DispatcherProvider
-import com.fedetto.arch.coroutines.SharedFlowParameters
+import com.fedetto.arch.coroutines.EventsConfiguration
 import com.fedetto.arch.interfaces.ActionsDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
@@ -18,16 +18,16 @@ constructor(
     private val updater: Updater<Action, State, SideEffect, Event>,
     initialState: State,
     private val processor: Processor<SideEffect, Action>,
-    eventsFlowParams: SharedFlowParameters = SharedFlowParameters(),
+    eventsConfiguration: EventsConfiguration = EventsConfiguration(),
     private val coroutineExceptionHandler: CoroutineExceptionHandler? = null,
 
-) : ViewModel(), ActionsDispatcher<Action> {
+    ) : ViewModel(), ActionsDispatcher<Action> {
 
     private val state = MutableStateFlow(initialState)
     private val events = MutableSharedFlow<Event>(
-        eventsFlowParams.replays,
-        eventsFlowParams.extraBufferCapacity,
-        eventsFlowParams.backPressureStrategy
+        eventsConfiguration.replays,
+        eventsConfiguration.extraBufferCapacity,
+        eventsConfiguration.backPressureStrategy
     )
 
     fun observeState(): Flow<State> {
@@ -68,7 +68,7 @@ constructor(
             coroutineScope.launch(coroutineContext) {
                 withContext(dispatcher) {
                     val effectAction = processor.dispatchSideEffect(effect)
-                     withContext(DispatcherProvider.mainDispatcher()) {
+                    withContext(DispatcherProvider.mainDispatcher()) {
                         action(effectAction)
                     }
                 }
@@ -79,5 +79,4 @@ constructor(
     private fun isOnMainThread(thread: Thread): Boolean {
         return thread == Looper.getMainLooper().thread
     }
-
 }
