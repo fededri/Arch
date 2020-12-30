@@ -46,7 +46,7 @@ In your ViewModel's constructor, you can pass into the parameters an ``EventsCon
 ## Basic Usage
 [Here](app/src/main/java/com/fedetto/example/) is an example of a basic usage of the library, this example is a counter with two buttons: up and down. When the counter reaches a multiple of ten, a ´SideEffect´ is dispatched that simulates an Input/Output operation and resets the counter.
 
-#### What we should do first is defining our `Actions` , `State`, and `SideEffects`
+#### What we should do first is define our `Actions` , `State`, and `SideEffects`
 
 ```kotlin
 data class State(val counter: Int = 0)
