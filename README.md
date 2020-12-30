@@ -115,6 +115,60 @@ class CounterUpdater : Updater<Action, State, SideEffect, Event> {
 ```
 
 
+#### Finally we just need to create our ViewModel, dispatch actions and observe the state from our activity or fragment
+
+
+```kotlin
+class ViewModel(
+    updater: Updater<Action, State, SideEffect, Event>,
+    processor: Processor<SideEffect, Action>
+) : ArchViewModel<Action, State, SideEffect, Event, Nothing>(
+    updater,
+    State(),
+    //Here we dispatch an initial SideEffect
+    setOf(SideEffect.ResetEffect),
+    processor
+)
+
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var viewModel: ViewModel
+    private val textView by lazy { findViewById<TextView>(R.id.textView) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        viewModel = ViewModel(Updater(), CounterProcessor())
+        lifecycleScope.launchWhenResumed {
+            viewModel.observeState().collect {
+                renderState(it)
+            }
+        }
+
+        findViewById<Button>(R.id.up).setOnClickListener {
+            viewModel.action(Action.Up)
+        }
+
+        findViewById<Button>(R.id.down).setOnClickListener {
+            viewModel.action(Action.Down)
+        }
+    }
+
+    private fun renderState(state: State) {
+        textView.text = state.counter.toString()
+    }
+}
+        
+        
+```
+
+#### Another example
+I have migrated one of my demo apps to this library, this one is a bit more complex than the previous example and fetchs real data from Reddit's API and makes use of `RenderState`, `Events` and error handling
+
+
+
 
 
 
