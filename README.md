@@ -1,5 +1,5 @@
 ![Arch](logo.png)
-Arch is a small library that helps to architecture Android Applications, it is based on several concepts of the functional paradigm and  Spotify's Mobius library but instead of using RxJava, it uses **Coroutines, SharedFlow and StateFlow**
+Arch is a small and lightweight library that helps to architecture Android Applications, it is based on several concepts of the functional paradigm and  Spotify's Mobius library but instead of using RxJava, it uses **Coroutines, SharedFlow and StateFlow**
 
 This library is built upon the Android's ViewModel class and takes full advantage of it
 
