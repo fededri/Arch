@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 ```
 
 #### Another example
-I have migrated one of my demo apps to Arch, [This one](https://github.com/fededri/Reddit_Client) is a bit more complex than the previous example and fetchs real data from Reddit's API and makes use of `RenderState`, `Events` and error handling
+I have migrated one of my demo apps to Arch, [This one](https://github.com/fededri/Reddit_Client/tree/coroutines_version) is a bit more complex than the previous example and fetchs real data from Reddit's API and makes use of `RenderState`, `Events` and error handling
 
 ## Error Handling
 SideEffects execution is accomplished by using coroutines, so the error handling is very similar, if one effect's coroutine throws an exception and you don't catch it inside your code the app will throw the exception.
