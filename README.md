@@ -29,6 +29,10 @@ Updater is an interface with just one **pure function**, it receives an action, 
 Depending on what type of `Next` object the ***Updater** returns in addition to changing the state, you can dispatch **SideEffects** and **Events** 
 
 ## SideEffects
-They are usually blocking or long running operations like database transactions or network requests. When a SideEffect is dispatched, a new coroutine is created in order to execute it. By default the coroutine will be cancelled if the ViewModel is cleared, but you can pass in a custom `CoroutineScope` if you want to keep alive the coroutine even after the ViewModel is cleared, my recommendation -if that is the case - is create a `CoroutineScope` inside your 'Application' class and pass it to the SideEffect's constructor
+They are usually blocking or long running operations like database transactions or network requests. When a SideEffect is dispatched, a new coroutine is created in order to execute it. By default the coroutine will be cancelled if the ViewModel is cleared, but you can pass in a custom `CoroutineScope` if you want to keep alive the coroutine even after the ViewModel is cleared, my recommendation -if that is the case - is to create a new `CoroutineScope` inside your `Application` class and pass it to the SideEffect's constructor
 
  
+##Events
+Usually they represent something that you want to notify to your view layer like popups, animations and transitions. If you have a single-activity architecture with multiple fragments, you can observe the same events from several fragments.
+
+
