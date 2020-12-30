@@ -165,10 +165,23 @@ class MainActivity : AppCompatActivity() {
 ```
 
 #### Another example
-I have migrated one of my demo apps to this library, this one is a bit more complex than the previous example and fetchs real data from Reddit's API and makes use of `RenderState`, `Events` and error handling
+I have migrated one of my demo apps to Arch, [This one](https://github.com/fededri/Reddit_Client) is a bit more complex than the previous example and fetchs real data from Reddit's API and makes use of `RenderState`, `Events` and error handling
 
+## Error Handling
+SideEffects execution is accomplished by using coroutines, so the error handling is very similar, if one effect's coroutine throws an exception and you don't catch it inside your code the app will throw the exception.
 
+In that case, if  you want to avoid a crash, you can catch all coroutine exceptions defining a custom `CoroutineExceptionHandler` and pass it into ArchViewModel's constructor
 
+```kotlin
+class EffectsExceptionHandler: AbstractCoroutineContextElement(CoroutineExceptionHandler),
+    CoroutineExceptionHandler {
+    override fun handleException(context: CoroutineContext, exception: Throwable) {
+        //handle your exception
+    }
+}
+```
+
+- If you are using the default `CoroutineScope` (viewModelScope), children coroutines fail independently of each other because this scope uses a `SupervisorJob`, but if you set a custom scope you must take care of this case
 
 
 
