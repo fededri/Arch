@@ -4,6 +4,11 @@ Arch is a small library that helps to architecture Android Applications, it is b
 This library is built upon the Android's ViewModel class and takes full advantage of it
 
 
+## Download
+```groovy
+implementation 'com.fededri.arch:arch:1.0.2'
+```
+
 ## ArchViewModel
 It is an abstract class extending from *ViewModel* and contains the main logic of this library,
 
