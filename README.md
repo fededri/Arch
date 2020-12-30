@@ -15,6 +15,9 @@ It is an abstract class extending from *ViewModel* and contains the main logic o
 ## State
 Handling state properly in every application is critical, with **Arch** you must define a custom State data class for each of your ViewModels, this state will be **inmmutable**
 
+## RenderState
+Optionally you can make a distinction between domain-state from render-state, so your views only has access to the data and objects they need to render the screen
+
 ## Actions
 With **Arch** the only way of changing anything in the app is by dispatching an **Action**, usually actions will be dispatched by user interactions, but not always.
 
