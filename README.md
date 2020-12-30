@@ -183,5 +183,23 @@ class EffectsExceptionHandler: AbstractCoroutineContextElement(CoroutineExceptio
 
 - If you are using the default `CoroutineScope` (viewModelScope), children coroutines fail independently of each other because this scope uses a `SupervisorJob`, but if you set a custom scope you must take care of this case
 
+## Running SideEffects that lives outside of your ViewModel lifecycle
+All SideEffects are cancelled when your ViewModel is cleared. If you want to avoid this, specify a custom scope so you can dispatch long-running effects independent of your ViewModel lifecycle. You can specify in which thread and scope you want to run each of your SideEffects, I recommend creating a new scope in your `Application` class, just take in mind that you have to take care of cancellation and exceptions.
+
+
+```kotlin
+sealed class SideEffect(
+    //Use CPU dispatcher to run side effects
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    //use viewModelScope
+    override val coroutineScope: CoroutineScope? = null
+) : SideEffectInterface {
+    
+    //This effect will run in a custom scope and will use the Default dispatcher
+    object ResetEffect : SideEffect(Dispatchers.Default, CustomCoroutineScope())
+}
+```
+
+
 
 
