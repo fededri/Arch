@@ -1,4 +1,4 @@
-package com.fedetto.arch
+package com.fedetto.arch.interfaces
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

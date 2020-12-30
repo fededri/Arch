@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fedetto.arch.coroutines.DispatcherProvider
 import com.fedetto.arch.coroutines.EventsConfiguration
-import com.fedetto.arch.interfaces.ActionsDispatcher
+import com.fedetto.arch.interfaces.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -13,11 +13,13 @@ import kotlinx.coroutines.withContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 
-abstract class ArchViewModel<Action : Any, State : Any, SideEffect : SideEffectInterface, Event : Any>
+abstract class ArchViewModel<Action : Any, State : Any, SideEffect : SideEffectInterface, Event : Any, RenderState : Any>
 constructor(
     private val updater: Updater<Action, State, SideEffect, Event>,
     initialState: State,
+    initialEffects: Set<SideEffect>? = null,
     private val processor: Processor<SideEffect, Action>,
+    private val stateMapper: StateMapper<State, RenderState>? = null,
     eventsConfiguration: EventsConfiguration = EventsConfiguration(),
     private val coroutineExceptionHandler: CoroutineExceptionHandler? = null,
 
@@ -29,9 +31,23 @@ constructor(
         eventsConfiguration.extraBufferCapacity,
         eventsConfiguration.backPressureStrategy
     )
+    private val renderState by lazy { MutableStateFlow(stateMapper?.mapToRenderState(state.value)) }
+
+    init {
+        if (initialEffects != null) {
+            dispatchSideEffects(initialEffects)
+        }
+    }
 
     fun observeState(): Flow<State> {
         return state.asStateFlow()
+    }
+
+    fun observeRenderState(): Flow<RenderState?> {
+        check(stateMapper != null) {
+            "In order to observe a RenderState, first you must pass a state mapper into the Arch's constructor"
+        }
+        return renderState.asStateFlow()
     }
 
     fun observeEvents(): Flow<Event> {
@@ -55,6 +71,7 @@ constructor(
             }
         }
         state.value = next.state
+        renderState.value = stateMapper?.mapToRenderState(next.state)
     }
 
     private fun dispatchSideEffects(sideEffects: Set<SideEffect>) {

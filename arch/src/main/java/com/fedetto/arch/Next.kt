@@ -1,5 +1,7 @@
 package com.fedetto.arch
 
+import com.fedetto.arch.interfaces.SideEffectInterface
+
 sealed class Next<out State : Any, out SideEffect : SideEffectInterface, out Event : Any> {
 
     abstract val state: State

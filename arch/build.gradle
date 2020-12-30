@@ -16,7 +16,7 @@ ext {
     siteUrl = 'https://github.com/fededri/Arch'
     gitUrl = 'https://github.com/fededri/Arch.git'
 
-    libraryVersion = '1.0.0-alpha01'      // library version
+    libraryVersion = '1.0.0-alpha02'      // library version
 
     developerId = 'fededri'
     developerName = 'Federico Miguel Angel Torres'

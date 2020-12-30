@@ -1,7 +1,7 @@
 package com.fedetto.example
 
 import com.fedetto.arch.Next
-import com.fedetto.arch.Updater
+import com.fedetto.arch.interfaces.Updater
 
 class Updater : Updater<Action, State, SideEffect, Event> {
 
