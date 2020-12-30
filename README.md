@@ -43,4 +43,78 @@ In your ViewModel's constructor, you can pass into the parameters an ``EventsCon
 - `ExtraBufferCapacity`: the number of values buffered in addition to `replay`, events under the hood are backed by a `SharedFlow` so if you emit an event and there is no space remaining in your buffer then the collector will be suspended
 - `OnBufferOverflow` you can configure what action to take in case of buffer overflow, the default behavior is suspending
 
+## Basic Usage
+[Here](app/src/main/java/com/fedetto/example/) is an example of a basic usage of the library, this example is a counter with two buttons: up and down. When the counter reaches a multiple of ten, a ´SideEffect´ is dispatched that simulates an Input/Output operation and resets the counter.
+
+#### What we should do first is defining our `Actions` , `State`, and `SideEffects`
+
+```kotlin
+data class State(val counter: Int = 0)
+
+sealed class Action {
+    object Up : Action()
+    object Down : Action()
+    object Reset : Action()
+}
+
+sealed class Event {
+    data class LogSomething(val text: String) : Event()
+}
+
+sealed class SideEffect(
+    //Use IO dispatcher to run side effects
+    override val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    //use viewModelScope
+    override val coroutineScope: CoroutineScope? = null
+) : SideEffectInterface {
+    //Set counter to zero
+    object ResetEffect : SideEffect()
+}
+```
+
+#### Now we need our `Processor` and `Updater`
+```kotlin
+class CounterProcessor : Processor<SideEffect, Action> {
+
+    override suspend fun dispatchSideEffect(effect: SideEffect): Action {
+        delay(3000)
+        return Action.Reset
+    }
+}
+
+class CounterUpdater : Updater<Action, State, SideEffect, Event> {
+
+    override fun onNewAction(action: Action, currentState: State): Next<State, SideEffect, Event> {
+        return when (action) {
+            Action.Up -> changeCounter(currentState, true)
+            Action.Down -> changeCounter(currentState, false)
+            Action.Reset -> Next.State(currentState.copy(counter = 0))
+        }
+    }
+
+    private fun changeCounter(
+        currentState: State,
+        isIncrement: Boolean
+    ): Next<State, SideEffect, Event> {
+        val next = when (isIncrement) {
+            true -> currentState.counter + 1
+            else -> currentState.counter - 1
+        }
+
+        return if ((next % 10) == 0) {
+            Next.StateWithSideEffectsAndEvents(
+                currentState.copy(counter = next),
+                setOf(SideEffect.ResetEffect),
+                setOf(Event.LogSomething("Multiple of 10"))
+            )
+        } else {
+            Next.State(currentState.copy(counter = next))
+        }
+    }
+}
+```
+
+
+
+
 
