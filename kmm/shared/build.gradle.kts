@@ -74,13 +74,13 @@ publishing {
                     url.set("https://github.com/fededri/Arch/issues")
                 }
                 scm {
-                    connection.set("https://github.com/.../playground-publish-kmp-to...")
-                    url.set("https://github.com/.../playground-publish-kmp-to...")
+                    connection.set("https://github.com/fededri/Arch.git")
+                    url.set("https://github.com/fededri/Arch")
                 }
                 developers {
                     developer {
-                        name.set("Kodein Koders")
-                        email.set("dev@kodein.net")
+                        name.set("Federico Torres")
+                        email.set("federico.torres@softvision.com")
                     }
                 }
             }
