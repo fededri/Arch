@@ -7,7 +7,8 @@ plugins {
     id("maven-publish")
     id("signing")
 }
-version = "1.0"
+
+val lifecycle_version = "2.3.1"
 val javadocJar = tasks.register("javadocJar", Jar::class.java) {
     archiveClassifier.set("javadoc")
 }
@@ -15,7 +16,7 @@ val sonatypeUsername: String? = System.getenv("SONATYPE_USERNAME")
 val sonatypePassword: String? = System.getenv("SONATYPE_PASSWORD")
 
 group = "io.github.fededri.arch"
-version = "0.1"
+version = "0.4"
 
 kotlin {
     android()
@@ -32,23 +33,31 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
     }
     sourceSets {
-        val commonMain by getting
-        val commonTest by getting {
+        val commonMain by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
             }
         }
-        val androidMain by getting
+
+        val androidMain by getting {
+            dependencies {
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+            }
+        }
         val iosMain by getting
+    }
+    android {
+        publishAllLibraryVariants()
     }
 }
 publishing {
     repositories {
         maven {
-            name="oss"
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
+            name = "oss"
+            val releasesRepoUrl =
+                uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
+            val snapshotsRepoUrl =
+                uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
             url = releasesRepoUrl
             credentials {
                 username = sonatypeUsername
