@@ -5,7 +5,7 @@ For Android targets, this library is built upon the Android's ViewModel class an
 
 
 ## Download
-Arch is uploaded to maven central, to start using it on your KMM project add this dependencies
+Arch is uploaded to maven central, to start using it on your KMM project add these dependencies
 ```kotlin
 val commonMain by getting {
             dependencies {
