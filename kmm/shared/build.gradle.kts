@@ -16,7 +16,7 @@ val sonatypeUsername: String? = System.getenv("SONATYPE_USERNAME")
 val sonatypePassword: String? = System.getenv("SONATYPE_PASSWORD")
 
 group = "io.github.fededri.arch"
-version = "0.4"
+version = "0.5"
 
 kotlin {
     android()
@@ -48,6 +48,7 @@ kotlin {
     }
     android {
         publishAllLibraryVariants()
+        publishLibraryVariantsGroupedByFlavor = true
     }
 }
 publishing {
