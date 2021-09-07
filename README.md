@@ -1,12 +1,23 @@
 ![Arch](logo.png)
-Arch is a small and lightweight library that helps to architecture Android Applications, it is based on several concepts of the functional paradigm and  Spotify's Mobius library but instead of using RxJava, it uses **Coroutines, SharedFlow and StateFlow**
+Arch is a small and lightweight Kotlin multiplatform library that helps to architecture Mobile Applications (iOS/Android), it is based on several concepts of the functional paradigm and  Spotify's Mobius library but instead of using RxJava, it uses **Coroutines, SharedFlow and StateFlow**
 
-This library is built upon the Android's ViewModel class and takes full advantage of it
+For Android targets, this library is built upon the Android's ViewModel class and takes full advantage of it
 
 
 ## Download
-```groovy
-implementation 'com.fededri.arch:arch:1.0.0-alpha02'
+Arch is uploaded to maven central, to start using it on your KMM project add this dependencies
+```kotlin
+val commonMain by getting {
+            dependencies {
+                api("io.github.fededri.arch:shared:0.5")
+            }
+        }
+        
+ val iosMain by getting {
+            dependencies {
+                implementation("io.github.fededri.arch:shared-ios:0.5")
+            }
+        }
 ```
 
 ## ArchViewModel
@@ -42,6 +53,14 @@ In your ViewModel's constructor, you can pass into the parameters an ``EventsCon
 - `Replays`: the number of events replayed to new subscribers, default is zero
 - `ExtraBufferCapacity`: the number of values buffered in addition to `replay`, events under the hood are backed by a `SharedFlow` so if you emit an event and there is no space remaining in your buffer then the collector will be suspended
 - `OnBufferOverflow` you can configure what action to take in case of buffer overflow, the default behavior is suspending
+
+## FlowWrapper
+It is an implementation of a `Flow`, but it adds a method so iOS clients can collect the flow.
+```kotlin
+fun collect(onEach: (T) -> Unit, onCompletion: (cause: Throwable?) -> Unit): Cancellable {
+...
+}
+```
 
 ## Basic Usage
 [Here](app/src/main/java/com/fedetto/example/) is an example of a basic usage of the library, this example is a counter with two buttons: up and down. When the counter reaches a multiple of ten, a ´SideEffect´ is dispatched that simulates an Input/Output operation and resets the counter.
@@ -115,7 +134,7 @@ class CounterUpdater : Updater<Action, State, SideEffect, Event> {
 ```
 
 
-#### Finally we just need to create our ViewModel, dispatch actions and observe the state from our activity or fragment
+#### Finally we just need to create our ViewModel, dispatch actions and observe the state from our iOS or Android views
 
 
 ```kotlin
