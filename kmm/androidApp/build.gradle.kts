@@ -11,11 +11,11 @@ dependencies {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdk = 32
     defaultConfig {
         applicationId = "io.github.fededri.arch.android"
-        minSdkVersion(23)
-        targetSdkVersion(30)
+        minSdk = 23
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
     }
